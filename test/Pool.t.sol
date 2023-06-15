@@ -8,8 +8,8 @@ import "src/Pool.sol";
 contract PoolTest is DSTest, Test {
     using stdJson for string;
     Pool pool;
-    address tokenA;
-    address tokenB;
+    address tokenIn;
+    address tokenOut;
     address router;
     address POOL_ADDRESS = 0x5Cce125E25A73bcF32c839F7EFc8c3D9e367A926;
 
@@ -20,18 +20,18 @@ contract PoolTest is DSTest, Test {
 
     function setUp() external {
         vm.createSelectFork(vm.envString("RPC_URL"));
-        uint blockNumber = vm.envUint("BLOCK_NUMBER");
-        tokenA = vm.envAddress("TOKEN_A");
-        tokenB = vm.envAddress("TOKEN_B");
+        bytes32 transactionHash = vm.envBytes32("TXN_HASH");
+        tokenIn = vm.envAddress("TOKEN_IN");
+        tokenOut = vm.envAddress("TOKEN_OUT");
         router = vm.envAddress("ROUTER");
 
-        vm.rollFork(blockNumber);
+        vm.rollFork(transactionHash);
 
         pool = new Pool();
     }
 
     function testPool() external {
-        address poolAddress = pool.fetchPair(tokenA, tokenB, router);
+        address poolAddress = pool.fetchPair(tokenIn, tokenOut, router);
 
         assertEq(poolAddress, POOL_ADDRESS);
     }
