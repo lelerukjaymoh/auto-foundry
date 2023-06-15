@@ -1,0 +1,19 @@
+{
+  "name": "auto-foundry",
+  "version": "1.0.0",
+  "description": "Test your streamed pending transactions on foundry on the fly",
+  "main": "index.ts",
+  "repository": "https://github.com/lelerukjaymoh/auto-foundry",
+  "author": "twitter.com/lelerukjaymoh",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "test": "ts-node -r dotenv/config test/index.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.1.4",
+    "ethers": "^6.6.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.3"
+  }
+}
