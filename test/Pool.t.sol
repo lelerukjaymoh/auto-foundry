@@ -2,22 +2,37 @@
 pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
+import "forge-std/StdJson.sol";
 import "src/Pool.sol";
 
-contract PoolTest is Test {
+contract PoolTest is DSTest, Test {
+    using stdJson for string;
     Pool pool;
+    address tokenA;
+    address tokenB;
+    address router;
+    address POOL_ADDRESS = 0x5Cce125E25A73bcF32c839F7EFc8c3D9e367A926;
+
+    struct Data {
+        uint a;
+        string b;
+    }
 
     function setUp() external {
         vm.createSelectFork(vm.envString("RPC_URL"));
+        uint blockNumber = vm.envUint("BLOCK_NUMBER");
+        tokenA = vm.envAddress("TOKEN_A");
+        tokenB = vm.envAddress("TOKEN_B");
+        router = vm.envAddress("ROUTER");
+
+        vm.rollFork(blockNumber);
 
         pool = new Pool();
     }
 
-    function testPool() external view {
-        address tokenA = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c;
-        address tokenB = 0x4f1F70c19ECB09248d3791F2404c35A0C187C2B4;
-        address router = 0x10ED43C718714eb63d5aA57B78B54704E256024E;
+    function testPool() external {
+        address poolAddress = pool.fetchPair(tokenA, tokenB, router);
 
-        pool.fetchPair(tokenA, tokenB, router);
+        assertEq(poolAddress, POOL_ADDRESS);
     }
 }
