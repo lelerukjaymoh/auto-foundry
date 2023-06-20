@@ -19,7 +19,8 @@ contract PoolTest is DSTest, Test {
     }
 
     function setUp() external {
-        vm.createSelectFork(vm.envString("RPC_URL"));
+        console.log("node ", vm.envString("JSON_RPC_URL"));
+        vm.createSelectFork(vm.envString("JSON_RPC_URL"));
         bytes32 transactionHash = vm.envBytes32("TXN_HASH");
         tokenIn = vm.envAddress("TOKEN_IN");
         tokenOut = vm.envAddress("TOKEN_OUT");

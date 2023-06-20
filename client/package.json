@@ -8,7 +8,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "test": "ts-node -r dotenv/config test/index.ts"
+    "test": "ts-node -r dotenv/config test/index.ts",
+    "dev": "tsc && ts-node -r dotenv/config dist/src/index.js"
   },
   "dependencies": {
     "dotenv": "^16.1.4",

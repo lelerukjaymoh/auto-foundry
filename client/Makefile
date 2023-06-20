@@ -4,4 +4,4 @@
 
 forge:
 	@echo "Running forge tests"
-	@forge test --mt [test] -vvvvv
+	@forge test --mt testPool -vvvvv
